@@ -12,7 +12,7 @@ export class PersonasProviderService {
   ) { }
 
   public getallPersonas() {
-    return this.http.get<Personas[]>('http://192.168.0.113:8000' + '/usuarios/personas');
+    return this.http.get<Personas[]>('http://localhost:8000' + '/usuarios/personas');
   }
 }
 

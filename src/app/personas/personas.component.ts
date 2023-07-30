@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PersonasProviderService } from '../providers/personas-provider.service';
 import { Personas } from '../models/Personas';
 
@@ -7,30 +7,34 @@ import { Personas } from '../models/Personas';
   templateUrl: './personas.component.html',
   styleUrls: ['./personas.component.css']
 })
-export class PersonasComponent {
-  public personas: Personas[] =[
+export class PersonasComponent implements OnInit {
+  public personas: Personas[] = [
     {
       id: 1,
       Nombre: '',
       Apellido: '',
-      Cédula: '',
+      Cedula: '',
       Email: '',
       Edad: 18
     }
   ];
-  constructor(
-    private PersonasProviderService: PersonasProviderService
-  ){};
+
+  constructor(private personasProviderService: PersonasProviderService) {}
+
+  ngOnInit() {
+    // Call getPersonas() when the component is initialized
+    this.getPersonas();
+  }
 
   getPersonas() {
-    this.PersonasProviderService.getallPersonas().subscribe(
+    this.personasProviderService.getallPersonas().subscribe(
       (data: Personas[]) => {
         this.personas = data;
-        console.log('Mariooooooo'+this.personas);
+        console.log('Personas:', this.personas);
       },
       error => {
-        console.log('error getPersonas', error);
+        console.log('Error getPersonas', error);
       }
-    )
-  } 
+    );
+  }
 }
